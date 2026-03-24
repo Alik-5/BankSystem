@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/data", (req, res) => {
+app.post("/api/register", (req, res) => {
     const { email, password } = req.body;
     
     console.log({ email, password });
