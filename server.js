@@ -8,6 +8,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/api/register", (req, res) => {
+    res.json({
+        email: "example@example.com",
+        password: "password123"
+    });
+});
+
 app.post("/api/register", (req, res) => {
     const { email, password } = req.body;
     
