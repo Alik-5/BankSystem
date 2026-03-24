@@ -9,11 +9,11 @@ app.post("/api/register", (req, res) => {
 
 app.get("/api/register", (req, res) => {
     res.json({
-        
+
          email: req.body.email, 
          password: req.body.password 
         
-});
+    });
 });
 
 app.listen(PORT, () => {
