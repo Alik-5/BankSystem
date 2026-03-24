@@ -3,9 +3,7 @@ const app = express();
 app.use(express.json());
 const PORT = 3000;
 
-app.post("/api/register", (req, res) => {
-    res.json(req.body);
-});
+
 
 app.get("/api/register", (req, res) => {
     res.json({
@@ -14,6 +12,10 @@ app.get("/api/register", (req, res) => {
          password: req.body.password 
         
     });
+});
+
+app.post("/api/register", (req, res) => {
+    res.json(req.body);
 });
 
 app.listen(PORT, () => {
