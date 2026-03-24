@@ -8,8 +8,8 @@ const PORT = 3000;
 app.get("/api/register", (req, res) => {
     res.json({
 
-         email: req.body.email, 
-         password: req.body.password 
+         email: "example@company.com", 
+         password: "password123"
         
     });
 });
