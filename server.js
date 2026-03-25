@@ -21,7 +21,7 @@ app.post('/api/register', async (req, res) => {
         const contactData = await contact.json();
         
         // Ստեղծել User
-        await fetch('https://your-creatio.creatio.com/0/odata/SysAdminUnit', {
+        await fetch('http://localhost:DevO/0/odata/SysAdminUnit', {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
