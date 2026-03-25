@@ -5,9 +5,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Ձեր Creatio-ի կարգավորումները
-const CREATIO_URL = 'http://localhost:80/DevO';
-const CREATIO_USER = 'Supervisor';  // Ձեր Creatio-ի login-ը
-const CREATIO_PASS = 'Supervisor';  // Ձեր Creatio-ի password-ը
+const CREATIO_URL = 'http://localhost/DevO';
+const CREATIO_USER = 'supervisor';  // Ձեր Creatio-ի login-ը
+const CREATIO_PASS = 'supervisor';  // Ձեր Creatio-ի password-ը
 
 app.post('/api/register', async (req, res) => {
     const { email, password } = req.body;
