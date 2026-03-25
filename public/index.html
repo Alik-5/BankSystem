@@ -16,7 +16,12 @@
             background: white;
             padding: 30px;
             border-radius: 10px;
-            width: 300px;
+            width: 350px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
         }
         input {
             width: 100%;
@@ -24,6 +29,7 @@
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
+            box-sizing: border-box;
         }
         button {
             width: 100%;
@@ -33,50 +39,109 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
-        .msg {
+            font-size: 16px;
             margin-top: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #msg {
+            margin-top: 15px;
             padding: 10px;
             border-radius: 5px;
             display: none;
+            word-break: break-word;
         }
-        .good { background: #d4edda; color: #155724; display: block; }
-        .bad { background: #f8d7da; color: #721c24; display: block; }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        .loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            display: block;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .info {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="box">
         <h2>Գրանցում</h2>
-        <div id="msg" class="msg"></div>
+        <div id="msg"></div>
         <form id="form">
             <input type="email" id="email" placeholder="Էլ. հասցե" required>
             <input type="password" id="pass" placeholder="Գաղտնաբառ" required>
-            <button type="submit">Գրանցվել</button>
+            <button type="submit" id="btn">Գրանցվել</button>
         </form>
+        <div class="info">
+            ⚡ Creatio URL: http://localhost/DevO
+        </div>
     </div>
 
     <script>
-        document.getElementById('form').onsubmit = async (e) => {
+        const form = document.getElementById('form');
+        const emailInput = document.getElementById('email');
+        const passInput = document.getElementById('pass');
+        const msgDiv = document.getElementById('msg');
+        const btn = document.getElementById('btn');
+
+        form.onsubmit = async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('pass').value;
-            const msg = document.getElementById('msg');
             
-            msg.className = 'msg';
-            msg.textContent = 'Գրանցվում է...';
-            msg.style.display = 'block';
+            const email = emailInput.value;
+            const password = passInput.value;
             
-            const res = await fetch('/api/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password: pass })
-            });
+            // Ցույց տալ loading
+            msgDiv.className = 'loading';
+            msgDiv.textContent = 'Գրանցվում է... Սպասեք';
+            msgDiv.style.display = 'block';
+            btn.disabled = true;
+            btn.textContent = 'Գրանցվում է...';
             
-            const data = await res.json();
-            msg.className = 'msg ' + (data.success ? 'good' : 'bad');
-            msg.textContent = data.message;
-            
-            if(data.success) setTimeout(() => msg.style.display = 'none', 2000);
+            try {
+                console.log('Ուղարկվում է:', { email, password });
+                
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                console.log('Response status:', res.status);
+                const data = await res.json();
+                console.log('Response data:', data);
+                
+                msgDiv.className = data.success ? 'success' : 'error';
+                msgDiv.textContent = data.message;
+                
+                if (data.success) {
+                    form.reset();
+                    setTimeout(() => {
+                        msgDiv.style.display = 'none';
+                    }, 3000);
+                }
+                
+            } catch (err) {
+                console.error('Fetch error:', err);msgDiv.className = 'error';
+                msgDiv.textContent = 'Սերվերի հետ կապի սխալ: ' + err.message;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Գրանցվել';
+            }
         };
     </script>
 </body>
