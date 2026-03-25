@@ -10,7 +10,7 @@ app.post('/api/register', async (req, res) => {
     
     try {
         // Ստեղծել Contact
-        const contact = await fetch('http://localhost:80/0/odata/Contact', {
+        const contact = await fetch('http://localhost:DevO/0/odata/Contact', {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + Buffer.from('user:Supervisor:Supervisor').toString('base64'),
@@ -21,7 +21,7 @@ app.post('/api/register', async (req, res) => {
         const contactData = await contact.json();
         
         // Ստեղծել User
-        await fetch('http://localhost:80/0/odata/SysAdminUnit', {
+        await fetch('http://localhost:DevO/0/odata/SysAdminUnit', {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + Buffer.from('user:Supervisor:Supervisor').toString('base64'),
