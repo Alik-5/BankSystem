@@ -5,7 +5,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Ձեր Creatio-ի կարգավորումները
-const CREATIO_URL = 'http://localhost/DevO';
+const CREATIO_URL = 'http://127.0.0.1/DevO';
 const CREATIO_USER = 'Supervisor';  // Ձեր Creatio-ի login-ը
 const CREATIO_PASS = 'Supervisor';  // Ձեր Creatio-ի password-ը
 
