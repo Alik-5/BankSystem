@@ -1,56 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Login & Register</title>
-<link rel="stylesheet" href="style.css">
+    <title>Գրանցում</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .msg {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .good { background: #d4edda; color: #155724; display: block; }
+        .bad { background: #f8d7da; color: #721c24; display: block; }
+    </style>
 </head>
-
 <body>
-<div class="container">
-    
-    <div id="message"></div>
-    
-    <h2>Register</h2>
-    <form id="registerForm">
-        <input name="email" type="email" placeholder="Email" required>
-        <input name="password" type="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-    </form>
-    
-    <hr>
-    
-    
-</div>
+    <div class="box">
+        <h2>Գրանցում</h2>
+        <div id="msg" class="msg"></div>
+        <form id="form">
+            <input type="email" id="email" placeholder="Էլ. հասցե" required>
+            <input type="password" id="pass" placeholder="Գաղտնաբառ" required>
+            <button type="submit">Գրանցվել</button>
+        </form>
+    </div>
 
-<script>
-function showMessage(text, isError) {
-    const msg = document.getElementById('message');
-    msg.textContent = text;
-    msg.style.background = isError ? '#f8d7da' : '#d4edda';
-    msg.style.color = isError ? '#721c24' : '#155724';
-    msg.style.padding = '10px';
-    msg.style.marginBottom = '15px';
-    msg.style.borderRadius = '6px';
-    setTimeout(() => msg.textContent = '', 3000);
-}
-
-// document.getElementById('registerForm').onsubmit = async (e) => {
-//     e.preventDefault();
-//     const email = e.target.email.value;
-//     const password = e.target.password.value;
-    
-//     const res = await fetch('/api/register', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ email, password })
-//     });
-    
-//     const data = await res.json();
-//     showMessage(data.message, !data.success);
-//     if (data.success) e.target.reset();
-// };
-</script>
-
+    <script>
+        document.getElementById('form').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+            const msg = document.getElementById('msg');
+            
+            msg.className = 'msg';
+            msg.textContent = 'Գրանցվում է...';
+            msg.style.display = 'block';
+            
+            const res = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password: pass })
+            });
+            
+            const data = await res.json();
+            msg.className = 'msg ' + (data.success ? 'good' : 'bad');
+            msg.textContent = data.message;
+            
+            if(data.success) setTimeout(() => msg.style.display = 'none', 2000);
+        };
+    </script>
 </body>
 </html>

@@ -1,14 +1,8 @@
 {
-  "name": "creatio-login-app",
-  "version": "1.0.0",
-  "description": "Login/Register integration with Creatio",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "axios": "^1.7.2",
-    "express": "^4.19.2",
-    "cors": "^2.8.5"
-  }
+    "name": "app",
+    "version": "1.0.0",
+    "scripts": { "start": "node server.js" },
+    "dependencies": {
+        "express": "^4.19.2"
+    }
 }

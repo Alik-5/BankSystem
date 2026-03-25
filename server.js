@@ -1,23 +1,46 @@
-const express = require("express");
+const express = require('express');
+const path = require('path');
 const app = express();
+
 app.use(express.json());
-const PORT = 3000;
+app.use(express.static('public'));
 
-app.post("/api/register", (req, res) => {
-    res.json(req.body);
-});
-
-app.get("/api/register", (req, res) => {
-    res.json({
-
-         email: req.body.email, 
-         password: req.body.password
+app.post('/api/register', async (req, res) => {
+    const { email, password } = req.body;
+    
+    try {
+        // Ստեղծել Contact
+        const contact = await fetch('https://your-creatio.creatio.com/0/odata/Contact', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Name: email.split('@')[0], Email: email })
+        });
+        const contactData = await contact.json();
         
-    });
+        // Ստեղծել User
+        await fetch('https://your-creatio.creatio.com/0/odata/SysAdminUnit', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Name: email,
+                Email: email,
+                ContactId: contactData.Id,
+                SysAdminUnitType: 4,
+                Active: true,
+                UserPassword: password
+            })
+        });
+        
+        res.json({ success: true, message: 'Գրանցումը հաջողվեց' });
+    } catch(e) {
+        res.json({ success: false, message: 'Սխալ' });
+    }
 });
 
-
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.listen(3000, () => console.log('Server on http://localhost:3000'));
