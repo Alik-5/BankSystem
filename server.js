@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // 👇 ԱՅՍ ՏՈՂԸ ՓՈԽԵՔ ՁԵՐ ՏՎՅԱԼՆԵՐՈՎ
-const CREATIO_URL = 'http://localhost:DevO'; 
+const CREATIO_URL = 'http://localhost'; 
 const CREATIO_AUTH = 'Basic ' + Buffer.from('Supervisor:Supervisor').toString('base64');
 // 👆 ՎԵՐԵՎՈՒՄ admin:password-ը ՓՈԽԱՐԻՆԵՔ ՁԵՐ ԼՈԳԻՆԸ:ԳԱՂՏՆԱԲԱՌԸ
 
