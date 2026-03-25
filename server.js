@@ -13,7 +13,7 @@ app.post('/api/register', async (req, res) => {
         const contact = await fetch('http://localhost:80/0/odata/Contact', {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
+                'Authorization': 'Basic ' + Buffer.from('user:Supervisor:Supervisor').toString('base64'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ Name: email.split('@')[0], Email: email })
@@ -24,7 +24,7 @@ app.post('/api/register', async (req, res) => {
         await fetch('http://localhost:80/0/odata/SysAdminUnit', {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
+                'Authorization': 'Basic ' + Buffer.from('user:Supervisor:Supervisor').toString('base64'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
