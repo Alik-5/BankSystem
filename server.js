@@ -10,7 +10,7 @@ app.post('/api/register', async (req, res) => {
     
     try {
         // Ստեղծել Contact
-        const contact = await fetch('https://your-creatio.creatio.com/0/odata/Contact', {
+        const contact = await fetch('http://localhost:DevO/0/odata/Contact', {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + Buffer.from('user:pass').toString('base64'),
