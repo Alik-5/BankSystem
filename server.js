@@ -3,9 +3,9 @@ const app = express();
 app.use(express.json());
 const PORT = 3000;
 
-// app.post("/api/register", (req, res) => {
-//     res.json(req.body);
-// });
+app.post("/api/register", (req, res) => {
+    res.json(req.body);
+});
 
 app.get("/api/register", (req, res) => {
     res.json({
