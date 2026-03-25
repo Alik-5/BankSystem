@@ -3,7 +3,9 @@ const app = express();
 app.use(express.json());
 const PORT = 3000;
 
-
+app.post("/api/register", (req, res) => {
+    res.json(req.body);
+});
 
 app.get("/api/register", (req, res) => {
     res.json({
@@ -14,9 +16,7 @@ app.get("/api/register", (req, res) => {
     });
 });
 
-app.post("/api/register", (req, res) => {
-    res.json(req.body);
-});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
