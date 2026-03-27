@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head><title>Գրանցում</title>
-<style>
-body{font-family:Arial;background:#f0f0f0;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
-div{background:white;padding:30px;border-radius:10px;width:300px}
-input{width:100%;padding:10px;margin:10px 0;border:1px solid #ddd;border-radius:5px}
-button{width:100%;padding:10px;background:#007bff;color:white;border:none;border-radius:5px;cursor:pointer}
-#msg{margin-top:10px;padding:10px;border-radius:5px;display:none}
-.green{background:#d4edda;color:#155724;display:block}
-.red{background:#f8d7da;color:#721c24;display:block}
-</style>
+<head>
+  <title>Create Contact</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div>
-<h2>Գրանցում</h2>
-<div id="msg"></div>
-<input type="name" id="name" placeholder="Անուն">
-<input type="phone" id="phone" placeholder="Հեռ. համար">
-<button onclick="reg()">Գրանցվել</button>
+
+<div class="container">
+  <h2>Create Contact</h2>
+
+  <input type="text" id="name" placeholder="Name">
+  <input type="text" id="phone" placeholder="Phone">
+
+  <button onclick="createContact()">Create</button>
+
+  <p id="result"></p>
 </div>
 
+<script src="app.js"></script>
 </body>
 </html>
