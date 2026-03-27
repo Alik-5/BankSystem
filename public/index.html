@@ -15,25 +15,10 @@ button{width:100%;padding:10px;background:#007bff;color:white;border:none;border
 <div>
 <h2>Գրանցում</h2>
 <div id="msg"></div>
-<input type="email" id="email" placeholder="Էլ. հասցե">
-<input type="password" id="pass" placeholder="Գաղտնաբառ">
+<input type="name" id="name" placeholder="Անուն">
+<input type="phone" id="phone" placeholder="Հեռ. համար">
 <button onclick="reg()">Գրանցվել</button>
 </div>
-<script>
-async function reg(){
-    let m=document.getElementById('msg');
-    m.className='';
-    m.innerText='Գրանցվում է...';
-    m.style.display='block';
-    let r=await fetch('/api/register',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({email:email.value,password:pass.value})
-    });
-    let d=await r.json();
-    m.className=d.ok?'green':'red';
-    m.innerText=d.msg;
-}
-</script>
+
 </body>
 </html>
